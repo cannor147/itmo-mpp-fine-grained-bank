@@ -35,7 +35,7 @@ public class BankImpl implements Bank {
      * <p>:TODO: This method has to be made thread-safe.
      */
     @Override
-    public long getAmount(int index) {
+    public synchronized long getAmount(int index) {
         return accounts[index].amount;
     }
 
@@ -44,7 +44,7 @@ public class BankImpl implements Bank {
      * <p>:TODO: This method has to be made thread-safe.
      */
     @Override
-    public long getTotalAmount() {
+    public synchronized long getTotalAmount() {
         long sum = 0;
         for (Account account : accounts) {
             sum += account.amount;
@@ -57,7 +57,7 @@ public class BankImpl implements Bank {
      * <p>:TODO: This method has to be made thread-safe.
      */
     @Override
-    public long deposit(int index, long amount) {
+    public synchronized long deposit(int index, long amount) {
         if (amount <= 0)
             throw new IllegalArgumentException("Invalid amount: " + amount);
         Account account = accounts[index];
@@ -72,7 +72,7 @@ public class BankImpl implements Bank {
      * <p>:TODO: This method has to be made thread-safe.
      */
     @Override
-    public long withdraw(int index, long amount) {
+    public synchronized long withdraw(int index, long amount) {
         if (amount <= 0)
             throw new IllegalArgumentException("Invalid amount: " + amount);
         Account account = accounts[index];
@@ -87,7 +87,7 @@ public class BankImpl implements Bank {
      * <p>:TODO: This method has to be made thread-safe.
      */
     @Override
-    public void transfer(int fromIndex, int toIndex, long amount) {
+    public synchronized void transfer(int fromIndex, int toIndex, long amount) {
         if (amount <= 0)
             throw new IllegalArgumentException("Invalid amount: " + amount);
         if (fromIndex == toIndex)
